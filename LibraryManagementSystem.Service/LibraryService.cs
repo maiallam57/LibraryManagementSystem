@@ -27,23 +27,49 @@ namespace LibraryManagementSystem.Service
 
         public async Task BorrowBookAsync(int bookId, int patronId)
         {
-            var borrowingRecord = new BorrowingRecord
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                BookId = bookId,
-                PatronId = patronId,
-                BorrowDate = DateTime.Now
-            };
-            _context.BorrowingRecords.Add(borrowingRecord);
-            await _context.SaveChangesAsync();
-        }
+                try
+                {
+                    var borrowingRecord = new BorrowingRecord
+                    {
+                        BookId = bookId,
+                        PatronId = patronId,
+                        BorrowDate = DateTime.Now
+                    };
 
+                    _context.BorrowingRecords.Add(borrowingRecord);
+                    await _context.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+            }
+        }
         public async Task ReturnBookAsync(int recordId)
         {
-            var record = await _context.BorrowingRecords.FindAsync(recordId);
-            if (record != null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                record.ReturnDate = DateTime.Now;
-                await _context.SaveChangesAsync();
+                try
+                {
+                    var record = await _context.BorrowingRecords.FindAsync(recordId);
+                    if (record != null)
+                    {
+                        record.ReturnDate = DateTime.Now;
+                        await _context.SaveChangesAsync();
+
+                        await transaction.CommitAsync();
+                    }
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
             }
         }
     }
