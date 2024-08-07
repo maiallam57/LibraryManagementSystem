@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Smarket.Models\LibraryManagementSystem.Models.csproj" />
+    <ProjectReference Include="..\LibraryManagementSystem.Models\LibraryManagementSystem.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
