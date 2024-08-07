@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Smarket.DataAccess\LibraryManagementSystem.DataAccess.csproj" />
-    <ProjectReference Include="..\Smarket.Models\LibraryManagementSystem.Models.csproj" />
+    <ProjectReference Include="..\LibraryManagementSystem.DataAccess\LibraryManagementSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\LibraryManagementSystem.Models\LibraryManagementSystem.Models.csproj" />
   </ItemGroup>
 
 </Project>
