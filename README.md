@@ -1,8 +1,8 @@
-Sure! Here’s how you can implement declarative transaction management, write unit tests for API endpoints, and provide clear documentation in a C# project using ASP.NET Core.
+Sure! Here’s how you can implement declarative transaction management, write unit tests for API endpoints, and provIde clear documentation in a C# project using ASP.NET Core.
 
 ### Transaction Management using Entity Framework Core
 
-In ASP.NET Core, you can use the `TransactionScope` class for transaction management. However, for simplicity and to align with typical practices, we'll rely on the transaction capabilities provided by Entity Framework Core's `SaveChanges` method.
+In ASP.NET Core, you can use the `TransactionScope` class for transaction management. However, for simplicity and to align with typical practices, we'll rely on the transaction capabilities provIded by Entity Framework Core's `SaveChanges` method.
 
 ### Implementing Transaction Management
 
@@ -26,8 +26,8 @@ public class BorrowingRecordService
             {
                 var borrowingRecord = new BorrowingRecord
                 {
-                    BookID = bookId,
-                    PatronID = patronId,
+                    BookId = bookId,
+                    PatronId = patronId,
                     BorrowDate = DateTime.Now
                 };
 
@@ -92,13 +92,13 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 ```csharp
 public class BookControllerTests
 {
-    private readonly Mock<LibraryContext> _mockContext;
+    private readonly Mock<ApplicationDbContext> _mockContext;
     private readonly BookController _controller;
     private readonly Mock<DbSet<Book>> _mockSet;
 
     public BookControllerTests()
     {
-        _mockContext = new Mock<LibraryContext>();
+        _mockContext = new Mock<ApplicationDbContext>();
         _mockSet = new Mock<DbSet<Book>>();
 
         _mockContext.Setup(m => m.Books).Returns(_mockSet.Object);
@@ -111,11 +111,11 @@ public class BookControllerTests
         // Arrange
         var books = new List<Book>
         {
-            new Book { ID = 1, Title = "Book1", Author = "Author1" },
-            new Book { ID = 2, Title = "Book2", Author = "Author2" }
+            new Book { Id = 1, Title = "Book1", Author = "Author1" },
+            new Book { Id = 2, Title = "Book2", Author = "Author2" }
         }.AsQueryable();
 
-        _mockSet.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(books.Provider);
+        _mockSet.As<IQueryable<Book>>().Setup(m => m.ProvIder).Returns(books.ProvIder);
         _mockSet.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(books.Expression);
         _mockSet.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(books.ElementType);
         _mockSet.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(books.GetEnumerator());
@@ -163,9 +163,9 @@ You can interact with the API endpoints using tools like Postman or cURL. Below 
   GET /api/book
   ```
 
-- **Get a book by ID**:
+- **Get a book by Id**:
   ```bash
-  GET /api/book/{id}
+  GET /api/book/{Id}
   ```
 
 - **Add a new book**:
@@ -182,10 +182,10 @@ You can interact with the API endpoints using tools like Postman or cURL. Below 
 
 - **Update a book**:
   ```bash
-  PUT /api/book/{id}
+  PUT /api/book/{Id}
   Content-Type: application/json
   {
-      "id": 1,
+      "Id": 1,
       "title": "Updated Title",
       "author": "Updated Author",
       "publicationYear": 2024,
@@ -195,7 +195,7 @@ You can interact with the API endpoints using tools like Postman or cURL. Below 
 
 - **Delete a book**:
   ```bash
-  DELETE /api/book/{id}
+  DELETE /api/book/{Id}
   ```
 
 
