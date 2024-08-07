@@ -9,13 +9,25 @@ In ASP.NET Core, you can use the `TransactionScope` class for transaction manage
 #### BorrowingRecordService with Transaction Management
 
 ```csharp
-public class BorrowingRecordService
+public class LibraryService : ILibraryService
 {
+
     private readonly ApplicationDbContext _context;
 
-    public BorrowingRecordService(ApplicationDbContext context)
+    public LibraryService(ApplicationDbContext context)
     {
         _context = context;
+    }
+
+    public async Task AddBookAsync(Book book)
+    {
+        _context.Books.Add(book);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Book>> GetAllBooksAsync()
+    {
+        return await _context.Books.ToListAsync();
     }
 
     public async Task BorrowBookAsync(int bookId, int patronId)
@@ -45,7 +57,6 @@ public class BorrowingRecordService
             }
         }
     }
-
     public async Task ReturnBookAsync(int recordId)
     {
         using (var transaction = await _context.Database.BeginTransactionAsync())
