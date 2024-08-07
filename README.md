@@ -11,9 +11,9 @@ In ASP.NET Core, you can use the `TransactionScope` class for transaction manage
 ```csharp
 public class BorrowingRecordService
 {
-    private readonly LibraryContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public BorrowingRecordService(LibraryContext context)
+    public BorrowingRecordService(ApplicationDbContext context)
     {
         _context = context;
     }
