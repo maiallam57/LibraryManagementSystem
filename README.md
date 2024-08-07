@@ -46,8 +46,6 @@ public class LibraryService : ILibraryService
                 _context.BorrowingRecords.Add(borrowingRecord);
                 await _context.SaveChangesAsync();
 
-                // Additional operations can be included here within the same transaction
-
                 await transaction.CommitAsync();
             }
             catch (Exception)
@@ -68,8 +66,6 @@ public class LibraryService : ILibraryService
                 {
                     record.ReturnDate = DateTime.Now;
                     await _context.SaveChangesAsync();
-
-                    // Additional operations can be included here within the same transaction
 
                     await transaction.CommitAsync();
                 }
