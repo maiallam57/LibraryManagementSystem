@@ -2,7 +2,6 @@ using LibraryManagementSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using LibraryManagementSystem.Service;
-using Microsoft.EntityFrameworkCore.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
